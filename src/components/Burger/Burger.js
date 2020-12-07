@@ -5,15 +5,24 @@ import BurgerIng from './BurgerIng/BurgerIng';
 
 const burger = (props) => {
 
-    const transformedIngs = Object.keys(props.ingredients).map(igKey => {
+    let transformedIngs = Object.keys(props.ingredients).map(igKey => {
         console.log('   jestesmy w kluczu: ' + igKey)
         return [...Array(props.ingredients[igKey])].map((_, i) => {
             //console.log('i: ' + i)
             //console.log(igKey + i)
             console.log(igKey)
             return <BurgerIng key={igKey + i} type ={igKey}></BurgerIng>
-        })
-    });
+        });
+    })
+    .reduce((arr, el) => {
+        return arr.concat(el)
+    }, []);
+
+
+if(transformedIngs.length === 0) {
+    transformedIngs = <p>please pick up some ingredients!</p>
+}
+
 
     console.log(transformedIngs)
 
