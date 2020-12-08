@@ -13,6 +13,7 @@ const controls = [
 const bulidControls = (props) => (
 
 <div className={classes.BulidControls}>
+  <p>Current price: <strong>{props.price.toFixed(2)} </strong> </p>
   {controls.map(ctrl => (
 <BulidControl 
 added={() => props.ingAdd(ctrl.type)}

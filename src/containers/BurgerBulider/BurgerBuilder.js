@@ -74,7 +74,7 @@ if(oldCount <= 0){
         };
 
         for(let key in disabledInfo) {
-             disabledInfo[key] = disabledInfo[key] <=0
+             disabledInfo[key] = disabledInfo[key] <= 0
         }
 
 
@@ -86,6 +86,7 @@ if(oldCount <= 0){
                 ingAdd={this.addIngredientHandler}
                 ingRemove={this.removeIngredientHandler}
                 disabled={disabledInfo}
+                price={this.state.totalPrice}
                 />
             </Aux>
         );
