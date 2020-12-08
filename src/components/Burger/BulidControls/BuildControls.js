@@ -5,7 +5,7 @@ import BulidControl from './BulidControl/BulidControl'
 const controls = [
   {label: 'Salad', type: 'salad'},
   {label: 'Bacon', type: 'bacon'},
-  {label: 'Chease', type: 'chease'},
+  {label: 'Chease', type: 'cheese'},
   {label: 'Meat', type: 'meat'},
 
 ];
@@ -14,7 +14,11 @@ const bulidControls = (props) => (
 
 <div className={classes.BulidControls}>
   {controls.map(ctrl => (
-<BulidControl key={ctrl.label} label={ctrl.label}/>
+<BulidControl 
+added={() => props.ingAdd(ctrl.type)}
+type={ctrl.label}
+key={ctrl.label} 
+label={ctrl.label}/>
   ))}
 </div>
 
