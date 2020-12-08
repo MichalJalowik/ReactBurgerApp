@@ -45,14 +45,47 @@ this.setState({totalPrice: newPrice, ingredients: updatedingredients})
 
 }
 
+removeIngredientHandler = (type) => {
+
+    const oldCount = this.state.ingredients[type];
+if(oldCount <= 0){
+    return;
+}
+
+
+    const updatedCount = oldCount - 1;
+    const updatedingredients = {
+        ...this.state.ingredients
+    };
+    updatedingredients[type] = updatedCount;
+    const priceDeduction = ING_Prices[type];
+    const oldPrice = this.state.totalPrice;
+    const newPrice = oldPrice - priceDeduction;
+    this.setState({totalPrice: newPrice, ingredients: updatedingredients})
+    
+
+}
+
+
 
     render () {
+        const disabledInfo = {
+...this.state.ingredients
+        };
+
+        for(let key in disabledInfo) {
+             disabledInfo[key] = disabledInfo[key] <=0
+        }
+
+
         return (
             <Aux>
                 <Burger ingredients={this.state.ingredients}></Burger>
                 
                 <BulidControls
                 ingAdd={this.addIngredientHandler}
+                ingRemove={this.removeIngredientHandler}
+                disabled={disabledInfo}
                 />
             </Aux>
         );

@@ -16,6 +16,8 @@ const bulidControls = (props) => (
   {controls.map(ctrl => (
 <BulidControl 
 added={() => props.ingAdd(ctrl.type)}
+removed={() => props.ingRemove(ctrl.type)}
+disabled={props.disabled[ctrl.type]}
 type={ctrl.label}
 key={ctrl.label} 
 label={ctrl.label}/>
