@@ -34,16 +34,16 @@ class BurgerBulider extends Component {
 
     }
 
-    updatePuchaseState (ingredients) {
-        
+    updatePuchaseState(ingredients) {
+
 
         const sum = Object.keys(ingredients).map(igKey => {
             return ingredients[igKey]
         })
-        .reduce((sum, el) => {
-            return sum + el;
-        }, 0);
-        this.setState({purchasable: sum > 0});
+            .reduce((sum, el) => {
+                return sum + el;
+            }, 0);
+        this.setState({ purchasable: sum > 0 });
 
     }
 
@@ -86,17 +86,17 @@ class BurgerBulider extends Component {
     }
 
     purchaseHandler = () => {
-this.setState({purchasing: true})
+        this.setState({ purchasing: true })
     }
 
     purchaseCancelHandler = () => {
-        this.setState({purchasing: false})
-            }
+        this.setState({ purchasing: false })
+    }
 
-purchaseContinueHandler = () => {
-    alert('You continue?');
+    purchaseContinueHandler = () => {
+        alert('You continue?');
 
-}
+    }
 
 
     render() {
@@ -112,11 +112,11 @@ purchaseContinueHandler = () => {
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary 
-                    ingredients={this.state.ingredients}
-                    purchaseCanceled={this.purchaseCancelHandler}
-                    purchaseContinued={this.purchaseContinueHandler}
-                    price={this.state.totalPrice}
+                    <OrderSummary
+                        ingredients={this.state.ingredients}
+                        purchaseCanceled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler}
+                        price={this.state.totalPrice}
                     ></OrderSummary>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}></Burger>
