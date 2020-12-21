@@ -2,21 +2,33 @@ import React from 'react'
 import Logo from '../../Logo/Logo'
 import NavigationItems from '../NavigationItem/NavigationItems'
 import classes from './SideDrawer.css'
+import Backdrop from '../../UI/Backdrop/Backdrop'
+import Aux from '../../../hoc/Auxiliary'
 
 const sideDrawer = (props) => {
-    return(
 
-        <div className={classes.SideDrawer}>
+    let attachedClasses = [classes.SideDrawer, classes.Close];
+    if(props.open){
+        attachedClasses = [classes.SideDrawer,classes.Open]
+    }
 
-            <div className={classes.Logo}>
-                <Logo></Logo>
+    return (
+        <Aux>
+        <Backdrop show={props.open} clicked={props.closed}></Backdrop>
+            <div className={attachedClasses.join(' ')}>
+
+                <div className={classes.Logo}>
+                    <Logo></Logo>
+                </div>
+
+                <nav>
+                    <NavigationItems></NavigationItems>
+                </nav>
+
             </div>
-            
-            <nav>
-                <NavigationItems></NavigationItems>
-            </nav>
 
-        </div>
+        </Aux>
+
 
     );
 };
