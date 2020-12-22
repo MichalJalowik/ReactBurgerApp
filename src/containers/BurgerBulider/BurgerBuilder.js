@@ -6,6 +6,7 @@ import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import axios from '../../axios-orders'
 import Spinner from '../../components/UI/Spinner/Spinner'
+import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler'
 
 const ING_Prices = {
     salad: 0.5,
@@ -33,7 +34,18 @@ class BurgerBulider extends Component {
         purchasable: false,
         purchasing: false,
         loading: false,
+        error: false
 
+    }
+
+    componentDidMount () {
+        axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
+            .then( response => {
+                this.setState( { ingredients: response.data } );
+            } )
+            .catch( error => {
+                this.setState( { error: true } );
+            } );
     }
 
     updatePuchaseState(ingredients) {
@@ -169,4 +181,4 @@ class BurgerBulider extends Component {
 
 }
 
-export default BurgerBulider;
+export default withErrorHandler(BurgerBulider, axios) ;
