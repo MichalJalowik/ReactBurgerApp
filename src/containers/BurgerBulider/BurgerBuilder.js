@@ -148,7 +148,7 @@ class BurgerBulider extends Component {
 
         
 
-        let burger = <Spinner></Spinner>
+        let burger = this.state.error ? <p>ingreadients cant be loaded...</p> : <Spinner></Spinner>
 
 
         if (this.state.ingredients) {
