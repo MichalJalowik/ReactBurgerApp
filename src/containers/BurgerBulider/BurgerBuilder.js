@@ -24,12 +24,7 @@ class BurgerBulider extends Component {
     // }
 
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
+        ingredients: null,
         totalPrice: 4,
         purchasable: false,
         purchasing: false,
@@ -38,14 +33,14 @@ class BurgerBulider extends Component {
 
     }
 
-    componentDidMount () {
-        axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
-            .then( response => {
-                this.setState( { ingredients: response.data } );
-            } )
-            .catch( error => {
-                this.setState( { error: true } );
-            } );
+    componentDidMount() {
+        axios.get('https://react-my-burger-45c8b-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json')
+            .then(response => {
+                this.setState({ ingredients: response.data });
+            })
+            .catch(error => {
+                this.setState({ error: true });
+            });
     }
 
     updatePuchaseState(ingredients) {
@@ -149,15 +144,39 @@ class BurgerBulider extends Component {
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
-        let orderSummary = <OrderSummary
-            ingredients={this.state.ingredients}
-            purchaseCanceled={this.purchaseCancelHandler}
-            purchaseContinued={this.purchaseContinueHandler}
-            price={this.state.totalPrice}
-        ></OrderSummary>
+        let orderSummary = null;
+
+        
+
+        let burger = <Spinner></Spinner>
+
+
+        if (this.state.ingredients) {
+            burger = (
+                <Aux>
+                    <Burger ingredients={this.state.ingredients}></Burger>
+                    <BulidControls
+                        ingAdd={this.addIngredientHandler}
+                        ingRemove={this.removeIngredientHandler}
+                        disabled={disabledInfo}
+                        price={this.state.totalPrice}
+                        purchasable={this.state.purchasable}
+                        ordered={this.purchaseHandler}
+                    />
+                </Aux>
+            )
+            orderSummary = <OrderSummary
+                ingredients={this.state.ingredients}
+                purchaseCanceled={this.purchaseCancelHandler}
+                purchaseContinued={this.purchaseContinueHandler}
+                price={this.state.totalPrice}
+            ></OrderSummary>
+        }
+
         if (this.state.loading) {
             orderSummary = <Spinner></Spinner>
         }
+
 
 
         return (
@@ -165,20 +184,10 @@ class BurgerBulider extends Component {
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
                     {orderSummary}
                 </Modal>
-                <Burger ingredients={this.state.ingredients}></Burger>
-
-                <BulidControls
-                    ingAdd={this.addIngredientHandler}
-                    ingRemove={this.removeIngredientHandler}
-                    disabled={disabledInfo}
-                    price={this.state.totalPrice}
-                    purchasable={this.state.purchasable}
-                    ordered={this.purchaseHandler}
-                />
+                {burger}
             </Aux>
         );
     }
-
 }
 
-export default withErrorHandler(BurgerBulider, axios) ;
+export default withErrorHandler(BurgerBulider, axios);
