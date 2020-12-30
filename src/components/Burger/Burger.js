@@ -1,9 +1,12 @@
 import React from 'react';
 import classes from '../Burger/Burger.css';
 import BurgerIng from './BurgerIng/BurgerIng';
-
+import {withRouter} from 'react-router-dom'
 
 const burger = (props) => {
+
+    console.log('burgerProps below')
+    console.log(props)
 
     let transformedIngs = Object.keys(props.ingredients).map(igKey => {
         console.log('   jestesmy w kluczu: ' + igKey)
@@ -41,4 +44,4 @@ if(transformedIngs.length === 0) {
 
 }
 
-export default burger;
+export default withRouter(burger) ;
